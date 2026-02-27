@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="2">
+<title>Sistema de Alarme IoT</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 95%;
+    max-width: 1000px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.status {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.on {
+    color: #00ff88;
+}
+
+.off {
+    color: #ff4d4d;
+}
+
+.button-area {
+    margin-top: 30px;
+    text-align: center;
+}
+
+button {
+    background: #00c6ff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #0072ff;
+    transform: scale(1.05);
+}
+
+.history {
+    margin-top: 30px;
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.history ul {
+    list-style: none;
+    margin-top: 10px;
+}
+
+.history li {
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🔐 Sistema de Alarme IoT</h1>
+
+<div class="grid">
+    
+    <div class="card">
+        <h2>🚶 Sensor PIR</h2>
+        {% if movimento %}
+        <div class="status on">MOVIMENTO DETECTADO</div>
+        {% else %}
+        <div class="status off">SEM MOVIMENTO</div>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h2>💡 LED Indicador</h2>
+        {% if led %}
+        <div class="status on">LIGADO</div>
+        {% else %}
+        <div class="status off">DESLIGADO</div>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h2>🔔 Relé / Alarme</h2>
+        {% if rele %}
+        <div class="status on">ATIVADO</div>
+        {% else %}
+        <div class="status off">DESATIVADO</div>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h2>⚙️ Status do Sistema</h2>
+        {% if alarme %}
+        <div class="status on">ALARME ATIVO</div>
+        {% else %}
+        <div class="status off">ALARME INATIVO</div>
+        {% endif %}
+    </div>
+
+</div>
+
+<div class="button-area">
+    <a href="/toggle">
+        <button>Ativar / Desativar Alarme</button>
+    </a>
+</div>
+
+<div class="history">
+    <h2>📜 Histórico de Eventos</h2>
+    <ul>
+        {% for h in historico %}
+        <li>{{h}}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="footer">
+Sistema IoT Simulado em Python • Engenharia de Software
+</div>
+
+</div>
+
+</body>
+</html>
